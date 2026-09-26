@@ -19,7 +19,6 @@ authors:
 license: MIT
 version: 1.0.0
 date-released: "2026-09-26"
-repository-code: "https://github.com/REPLACE_WITH_USERNAME/np-spinal-transcriptome-reanalysis"
 keywords:
   - neuropathic pain
   - spinal cord
