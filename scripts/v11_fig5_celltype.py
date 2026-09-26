@@ -134,7 +134,7 @@ axC.text(2.21, 1.92, "Supported by the present data", ha="center", va="top",
          fontsize=7.3, fontweight="bold", color="#3E8C72")
 axC.text(0.26, 1.52,
          "\u2022  Relative expression of each candidate across the ten\n"
-         "    annotated cell types of an adult rat spinal cord reference\n"
+         "    annotated cell types of an adult mouse spinal cord reference\n"
          "\u2022  Dominant cell type and detection rate per candidate\n"
          "\u2022  16 of 29 candidates are assessable; complement and\n"
          "    microglial activation genes are microglia-dominant",

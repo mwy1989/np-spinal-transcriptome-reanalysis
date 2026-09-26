@@ -91,9 +91,9 @@ Because every intermediate table ships with the package, **each reported number 
 | A1 | `limma_standard_v11.R` | `limma_standard_all.csv`, `limma_all_contrasts.csv` — limma-trend (`eBayes(trend=TRUE)`) per time point on the unified scale log2(FPKM + 0.1) |
 | A2 | `v11_01_deg_finalize.R` | `DEG_strict_genes.csv` (386), `DEG_exploratory_genes.csv` (1,940), `DEG_summary_by_timepoint.csv` |
 
-**Unified scale.** Every analysis in the manuscript uses `log2(FPKM + 0.1)`. This single choice is applied to differential expression, clustering, network construction, pathway scoring and every table and figure. No other scale, pseudo-count or transformation is used anywhere.
+**Unified scale (discovery and stimulation cohorts only).** The discovery and stimulation cohorts were analysed on `log2(FPKM + 0.1)` with limma-trend, and this scale is used for their differential expression, clustering, network construction, pathway scoring and every table and figure derived from them. It is **not** applied elsewhere: GSE5296 is microarray data and was analysed with limma after restoring its log2 scale, and the single-cell data were used through their original annotated matrix.
 
-**Dual thresholds.** Strict set = BH FDR < 0.05 and |log2FC| > 0.58; exploratory set = nominal P < 0.05 and |log2FC| > 0.58.
+**Dual thresholds.** Strict set = BH FDR < 0.05 and |log2FC| > 0.58; exploratory set = nominal P < 0.05 and |log2FC| > 0.58. Because the effect-size floor is the same, the strict set is a **subset** of the exploratory set (386 of 1,940 genes, 19.9 %; Jaccard 0.20).
 
 ### Stage B — Temporal structure and co-expression
 | # | Script | Produces |
@@ -101,7 +101,7 @@ Because every intermediate table ships with the package, **each reported number 
 | B1 | `v11_05_temporal_clusters.R` | `cluster_k4_*.csv` (K = 4), `cluster_k6_*.csv` (K = 6) — fuzzy c-means on z-standardised group means |
 | B2 | `v11_02_wgcna.R`, `v11_02b_wgcna_degs.R` | `wgcna_degs_*` — signed network, power = 14 (R² = 0.805), `blockwiseModules` |
 
-Note: the module–cluster cross-tabulation reported in Figure 2B compares frameworks built on **different information** (trajectory shape vs. co-expression topology). It is reported as **convergence**, not as independent replication.
+Note: the module–cluster cross-tabulation reported in Figure 2B compares frameworks built on **different information** (trajectory shape vs. co-expression topology). Agreement between them shows robustness to the choice of method; it is **not** independent validation, because both frameworks were applied to the same samples and to gene sets that had already been filtered by differential expression. The cross-tabulation also shows that the correspondence is specific rather than general: the two dominant modules correspond almost completely to the two largest programmes (turquoise 460/569 in C3; blue 235/238 in C4), whereas the smaller brown module is split (111/155 in C3) and the grey set is distributed across all four programmes. In WGCNA the grey set denotes genes assigned to no module and is therefore not itself a module, so the network returns **three modules plus the unassigned grey set**.
 
 ### Stage C — Candidate genes
 | # | Script | Produces |
@@ -115,7 +115,7 @@ Primary list = selected by ≥1 machine-learning method **and** passing BH FDR <
 |---|---|---|
 | D1 | `v11_07_export_genesets.py`, `v11_08_fetch_genesets.py` | `v11_hallmark_rat.gmt` (orthologue-mapped), coverage tables |
 | D2 | `v11_09_gsva.R` | `gsva_hallmark_scores.csv`, `gsva_hallmark_delta.csv` — GSVA 1.50.5 with `gsvaParam`, Gaussian kernel. **Pathways are always indexed by name, never by position.** |
-| D3 | `v11_10_progeny.py` | `progeny_scores.csv`, `progeny_delta_limma.csv` — PROGENy via decoupleR 2.2.0 (`dc.mt.mlm`, tmin = 5) |
+| D3 | `v11_10_progeny.py` | `progeny_scores.csv`, `progeny_delta_limma.csv` — PROGENy pathway-activity scores via `decoupler` 2.2.0 (the Python implementation of the decoupleR model family; `dc.mt.mlm`, tmin = 5). PROGENy infers directed **pathway activity** from a curated, direction-annotated responsive-gene model, so it is complementary to, not independent of, GSVA |
 | D4 | `v11_11_pathway_consolidate.R` | `pathway_summary_hallmark.csv`, `pathway_cross_method_consistency.csv` (9/12 agree at 7 d) |
 | D5 | `v11_12_enrichment.py` | `enrichment_candidates.csv`, `enrichment_module_turquoise.csv`, `enrichment_module_blue.csv` |
 
@@ -123,7 +123,7 @@ Primary list = selected by ≥1 machine-learning method **and** passing BH FDR <
 | # | Script | Produces |
 |---|---|---|
 | E1 | `v11_06_gse5296.R` | `gse5296_limma_all.csv`, `gse5296_candidate_concordance.csv`, `gse5296_module_overrepresentation.csv`. The distributed matrix is a **linearised back-transformation of RMA log2 values** and is log2-transformed before any computation (median after log2 = 6.08, range −0.69 to 11.87); model is `~ strain + condition` |
-| E2 | `v11_04_scs_reversal.py` | `scs_candidate_expression.csv`. **No P value, confidence interval or restoration percentage is computed** — the three samples per condition are three stimulation frequencies, not replicates |
+| E2 | `v11_04_scs_reversal.py` | `scs_candidate_expression.csv`. **No P value, confidence interval or restoration percentage is computed.** Each of the four stimulated conditions contains three samples that the source metadata labels as replicates but which carry 10/15/20 Hz (MS, SCS, DES_eff) or 1/30/40 Hz (DES_ineff), so frequency and sample identity cannot be separated; the two non-stimulated conditions (sham, untrained) carry three replicates and no frequency label |
 | E3 | `v11_13_celltype_annotation.py` | `candidate_dominant_celltype.csv`, `candidate_celltype_detection_rate.csv`, `fig5_celltype_heatmap_matrix.csv` |
 | E4 | `v11_14_drug_targets.py` | `drug_target_cross.csv` (supplementary only) |
 
@@ -139,6 +139,16 @@ Primary list = selected by ≥1 machine-learning method **and** passing BH FDR <
 | F7 | `v11_fig6_threshold.py` | Figure 6 |
 | F8 | `v11_tables.py` | Table 1, Table 2 |
 | F9 | `v11_table3.py` | Table 3 |
+
+### Stage G — Criterion sensitivity and literature cross-reference
+These two scripts live in `novelty_v11/` rather than `scripts/` and are the ones that produce the Figure 6 and Table 3 inputs. Their data root resolves the same way (`SCS_ROOT`, else the package root) and their intermediate tables are read from `results/` and written beside the scripts.
+
+| # | Script | Produces |
+|---|---|---|
+| G1 | `novelty_v11/_14_threshold_sensitivity.py` | `B_threshold_spectrum.csv`, `B_jaccard_matrix.csv`, `B_candidate_robustness.csv` — ten analysis criteria applied to the same limma-trend output; the input for Figure 6. Reproduces the published criterion of the data originators on identical contrast definitions (861/708 vs the reported 529/352) and records the number of criteria passed by each of the 29 candidates (20 pass all ten) |
+| G2 | `novelty_v11/_13_gene_crosswalk.py` | `C_gene_crosswalk_matrix.csv`, `C_gene_crosswalk_summary.csv` — gene-level cross-reference of the 29 candidates against six related studies (**body text only**; supplementary tables were not searched, so absence is not evidence of non-reporting); the input for Table 3 |
+
+**Not redistributed.** `_13_gene_crosswalk.py` reads plain-text caches of the six related papers, which are not included here for copyright reasons. The list of papers and the genes each mentions are in `results/C_gene_crosswalk_summary.csv`, so the derived table can be verified without the full texts.
 
 ---
 
@@ -173,10 +183,10 @@ A machine-readable version of this mapping is in `MANIFEST.tsv`.
 | PROGENy JAK-STAT +6.746 at 7 d | `progeny_delta_limma.csv` |
 | GSE5296 concordance 20/23 at 7 d, ρ = 0.649 | `gse5296_candidate_concordance.csv` |
 | 8 of 22 candidates with stimulation-associated trends | `scs_candidate_expression.csv` |
-| 10 of 16 assessable candidates microglia-dominant | `candidate_dominant_celltype.csv` |
+| 10 of 16 assessable candidates microglia-dominant; 13 of 16 myeloid-dominant once microglia, macrophages and neutrophils are merged | `candidate_dominant_celltype.csv` |
 | DEG yield spans 301–4,047 genes (13.4-fold) across ten analysis criteria | `B_threshold_spectrum.csv` |
 | Published criterion applied to identical contrasts: 861 / 708 vs 529 / 352 reported | `B_threshold_spectrum.csv` |
-| Jaccard 0.20 between the strict and the exploratory set (about 80 % of the list replaced) | `B_jaccard_matrix.csv` |
+| Jaccard 0.20 between the strict and the exploratory set; the strict set is a subset, 386 of 1,940 genes (19.9 %) surviving correction | `B_jaccard_matrix.csv` |
 | 20 of 29 candidates pass all ten criteria; 29 of 29 pass the strict criterion | `B_candidate_robustness.csv` |
 | 25 of 29 candidates not mentioned in the body text of six competing studies | `C_gene_crosswalk_matrix.csv` |
 
@@ -186,7 +196,7 @@ A machine-readable version of this mapping is in `MANIFEST.tsv`.
 
 - The discovery cohort has **three animals per time point**; although limma's variance moderation improves power, no gene passes strict correction at 0.5 or 1 d.
 - **FPKM with a pseudo-count of 0.1** is a legitimate and internally consistent choice, but it is not a count-based model; a different pseudo-count would change fold-change magnitudes for lowly expressed genes.
-- The stimulation dataset (**GSE243038**) contains motoneurons only and its three samples per condition are three different stimulation frequencies, not biological replicates. It supports **no inferential claim** of any kind.
+- The stimulation dataset (**GSE243038**) contains motoneurons only. Its four stimulated conditions each contain three samples labelled as replicates that nevertheless carry different frequencies (10/15/20 Hz for MS, SCS and DES_eff; 1/30/40 Hz for DES_ineff), so frequency and sample identity are confounded, while the two non-stimulated conditions carry three replicates and no frequency label. The dataset supports **no inferential claim** of any kind.
 - The single-cell reference (**GSE189070**) contains **no neuronal cluster** and is not spatial. Neuronal expression could not be assessed for any gene, and no spatial inference is made.
 - **No wet-laboratory validation** was performed. Every statement in the manuscript is a hypothesis or a dataset description, not a demonstration of mechanism.
 

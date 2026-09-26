@@ -43,14 +43,14 @@ TPD = ["0.5 d", "1 d", "3 d", "7 d", "14 d"]
 DEFS = {
     "C1":  ("BH FDR < 0.05 & |log2FC| > 0.58",                          "fdr"),
     "C3":  ("BH FDR < 0.05, no effect-size filter",                     "fdr"),
-    "C7":  ("BH FDR < 0.05 & |log2FC| >= 2",                            "fdr"),
+    "C7":  ("BH FDR < 0.05 & |FC| >= 2 (two-fold)",                     "fdr"),
     "C10": ("BH FDR < 0.05 & |log2FC| > 0.58 & FPKM >= 0.5",            "fdr"),
     "C6":  ("P <= 0.05 & FC >= 1.5 & FPKM >= 0.5 (published, He 2025)", "pub"),
     "C2":  ("nominal P < 0.05 & |log2FC| > 0.58",                       "nom"),
     "C4":  ("nominal P < 0.05, no effect-size filter",                  "nom"),
     "C5":  ("nominal P < 0.01 & |log2FC| > 0.58",                       "nom"),
-    "C8":  ("nominal P < 0.05 & |log2FC| >= 2",                         "nom"),
-    "C9":  ("nominal P < 0.01 & |log2FC| >= 2",                         "nom"),
+    "C8":  ("nominal P < 0.05 & |FC| >= 2 (two-fold)",                  "nom"),
+    "C9":  ("nominal P < 0.01 & |FC| >= 2 (two-fold)",                  "nom"),
 }
 # spec.csv 行序：1,2,3,4,5,6,7,8,9,10 -> 映射到 C 编号
 rowmap = {"C1": 0, "C2": 1, "C3": 2, "C4": 3, "C5": 4,
@@ -197,7 +197,7 @@ for s in axD.spines.values():
 axD.tick_params(length=0)
 axD.set_title("Overlap between criteria", loc="left", pad=16)
 axD.text(1.04, 0.30,
-         "Turning multiple-testing\ncorrection on or off replaces\nabout 80 % of the gene list\n"
+         "The strict set is a subset of the\nexploratory set: 386 of 1,940 genes\n(19.9 %) survive correction\n"
          "(C1 vs C2: Jaccard 0.20)",
          transform=axD.transAxes, fontsize=5.7, color="#8F3F3C", ha="left",
          va="center", linespacing=1.5)
@@ -212,7 +212,7 @@ rob["npass"] = rob["n_criteria_pass"]
 xs = rob["max_abs_log2FC"].values
 ys = rob["npass"].values
 cols = ["#C4685F" if n >= 10 else (AMBER if n == 8 else SOFT_RED) for n in ys]
-axF.axvline(2.0, color="#8F3F3C", lw=0.9, ls=(0, (4, 3)), zorder=2)
+axF.axvline(1.0, color="#8F3F3C", lw=0.9, ls=(0, (4, 3)), zorder=2)
 axF.scatter(xs, ys, s=17, c=cols, edgecolor="white", lw=0.5, zorder=4)
 for _, r in rob.iterrows():                 # 仅单独标注低表达导致的掉队者
     if r["npass"] == 8:
