@@ -14,8 +14,10 @@ import pandas as pd
 # --- 复现包路径（可移植化改写；原始脚本使用本机绝对路径）---
 # 注意：本脚本需把竞品论文全文的纯文本缓存放在本目录下（因版权不随包分发）；
 #       论文清单与提及情况见 results/C_gene_crosswalk_summary.csv。
-BASE = os.path.dirname(os.path.abspath(__file__))
-OUT = BASE
+_PKG = os.environ.get("SCS_ROOT") or os.path.dirname(
+    os.path.dirname(os.path.abspath(__file__)))
+BASE = os.path.dirname(os.path.abspath(__file__))   # 竞品全文纯文本缓存（需自备；见 README Stage G）
+OUT = os.path.join(_PKG, "results")                 # 与其它脚本一致，中间表写入 results/
 
 CANDIDATES = [
     "Reg3b", "C1qa", "Cfh", "Gapt", "Hexb", "Nrp1", "Laptm5", "Nlrc4", "Mmp3",

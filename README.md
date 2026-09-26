@@ -141,7 +141,7 @@ Primary list = selected by ≥1 machine-learning method **and** passing BH FDR <
 | F9 | `v11_table3.py` | Table 3 |
 
 ### Stage G — Criterion sensitivity and literature cross-reference
-These two scripts live in `novelty_v11/` rather than `scripts/` and are the ones that produce the Figure 6 and Table 3 inputs. Their data root resolves the same way (`SCS_ROOT`, else the package root) and their intermediate tables are read from `results/` and written beside the scripts.
+These two scripts live in `novelty_v11/` rather than `scripts/` and produce the Figure 6 and Table 3 inputs. Their data root resolves the same way (`SCS_ROOT`, else the package root); they read their inputs from, and write their intermediate tables to, `results/`, alongside the tables shipped here.
 
 | # | Script | Produces |
 |---|---|---|

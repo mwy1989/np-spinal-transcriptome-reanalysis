@@ -19,7 +19,7 @@ import pandas as pd
 _PKG = os.environ.get("SCS_ROOT") or os.path.dirname(
     os.path.dirname(os.path.abspath(__file__)))
 BASE = os.path.join(_PKG, "results")               # 原始: F:\scs research\output\v11
-OUT = os.path.dirname(os.path.abspath(__file__))   # 原始: F:\scs research\outputs\novelty_v11
+OUT = os.path.join(_PKG, "results")   # 原始: F:\scs research\outputs\novelty_v11
 
 d = pd.read_csv(os.path.join(BASE, "limma_all_contrasts.csv"))
 cand = pd.read_csv(os.path.join(BASE, "candidates_primary.csv"))["gene"].tolist()
