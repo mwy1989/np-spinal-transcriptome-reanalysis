@@ -14,7 +14,10 @@ suppressMessages({
   library(limma)
 })
 
-BASE <- "F:/scs research"
+BASE <- Sys.getenv("SCS_ROOT", unset = {
+  .f <- sub("^--file=", "", grep("^--file=", commandArgs(FALSE), value = TRUE))
+  if (length(.f)) normalizePath(file.path(dirname(.f[1]), "..")) else normalizePath(".")
+})
 OUT  <- file.path(BASE, "output", "v11")
 dir.create(OUT, showWarnings = FALSE, recursive = TRUE)
 

@@ -1,0 +1,11 @@
+# Normalise line endings in the repository, independent of the platform
+# used to clone or check out the package.
+* text=auto eol=lf
+
+# Binary artefacts must never be line-ending converted
+*.png  binary
+*.pdf  binary
+*.xlsx binary
+*.rds  binary
+*.h5ad binary
+*.gmt  text eol=lf

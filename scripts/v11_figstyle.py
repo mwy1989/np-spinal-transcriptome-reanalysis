@@ -5,7 +5,7 @@ v11 统一绘图样式基线
   - 白底、无阴影、无发光、无 emoji
   - 字体 Arial；正文色 #4A4540；网格 #E5E2DE
   - Mfuzz 对齐柔色系：软红 #E8A9A4 / 软绿 #7DB89A / 软蓝 #5BC0DE / 琥珀 #F0AD4E
-输出目录：F:\\scs research\\Figures_v11\\
+输出目录：<SCS_ROOT>/Figures_v11/
 """
 import os
 import matplotlib
@@ -13,7 +13,8 @@ matplotlib.use("Agg")
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 
-BASE = r"F:\scs research"
+import os as _os
+BASE = _os.environ.get("SCS_ROOT") or _os.path.dirname(_os.path.dirname(_os.path.abspath(__file__)))
 V11 = os.path.join(BASE, "output", "v11")
 FIGDIR = os.path.join(BASE, "Figures_v11")
 os.makedirs(FIGDIR, exist_ok=True)

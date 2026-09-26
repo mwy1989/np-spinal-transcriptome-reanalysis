@@ -20,11 +20,13 @@ from v11_figstyle import (apply_style, save, despine, panel_tag, V11,
                           TEXT, GRID, SPINE, NEUTRAL, TP_ORDER, TP_LABEL, TP_COLOR,
                           STRICT_COLOR, EXPLOR_COLOR, SOFT_RED, AMBER, SOFT_BLUE)
 
+import os as _os
+BASE = _os.environ.get("SCS_ROOT") or _os.path.dirname(_os.path.dirname(_os.path.abspath(__file__)))
 apply_style()
 print("Fig 1 ...")
 
 expr = pd.read_csv(os.path.join(V11, "expr_log2_pseudo0.1.csv"), index_col=0)
-meta = pd.read_csv(os.path.join("F:/scs research", "output", "GSE175760_metadata.csv"))
+meta = pd.read_csv(os.path.join(BASE, "output", "GSE175760_metadata.csv"))
 deg = pd.read_csv(os.path.join(V11, "DEG_summary_by_timepoint.csv"))
 
 fig = plt.figure(figsize=(7.2, 6.6))

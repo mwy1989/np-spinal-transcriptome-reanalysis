@@ -21,7 +21,8 @@ from v11_figstyle import (apply_style, save, despine, panel_tag, V11,
 apply_style()
 print("Fig 3 ...")
 
-BASE = "F:/scs research"
+import os as _os
+BASE = _os.environ.get("SCS_ROOT") or _os.path.dirname(_os.path.dirname(_os.path.abspath(__file__)))
 cand = pd.read_csv(os.path.join(V11, "candidates_primary.csv"))
 expr = pd.read_csv(os.path.join(V11, "expr_log2_pseudo0.1.csv"), index_col=0)
 meta = pd.read_csv(os.path.join(BASE, "output", "GSE175760_metadata.csv"))

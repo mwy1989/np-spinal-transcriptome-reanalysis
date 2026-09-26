@@ -14,7 +14,8 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import StratifiedKFold, KFold
 import warnings; warnings.filterwarnings('ignore')
 
-BASE = r"F:\scs research"
+import os as _os
+BASE = _os.environ.get("SCS_ROOT") or _os.path.dirname(_os.path.dirname(_os.path.abspath(__file__)))
 OUT  = BASE + r"\output"
 V11  = OUT + r"\v11"
 

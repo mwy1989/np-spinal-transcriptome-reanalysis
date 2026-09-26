@@ -19,6 +19,7 @@ authors:
 license: MIT
 version: 1.0.0
 date-released: "2026-09-26"
+repository-code: "https://github.com/REPLACE_WITH_USERNAME/np-spinal-transcriptome-reanalysis"
 keywords:
   - neuropathic pain
   - spinal cord
@@ -29,10 +30,6 @@ keywords:
   - microglia
   - spinal cord stimulation
   - reproducibility
-identifiers:
-  - type: doi
-    value: "10.5281/zenodo.XXXXXXX"
-    description: "Zenodo DOI (to be assigned on deposit)"
 references:
   - title: >-
       Temporal spinal transcriptomic reprogramming and stimulation-associated

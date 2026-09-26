@@ -49,12 +49,37 @@ BiocManager::install(c("limma", "GSVA", "GSEABase"))
 - scikit-learn, pandas, numpy, matplotlib, gseapy, anndata, decoupler 2.2.0
 - `requirements_python.txt`
 
+Figures 1–5 in this package were rendered with matplotlib 3.10.9 and Figure 6 with 3.11.0. Because figure geometry is computed from a tight bounding box, another matplotlib version may shift the canvas by a pixel or two; no plotted value, colour or label is affected. Pin `matplotlib==3.10.9` if byte-identical output is required.
+
 ```bash
 pip install -r requirements_python.txt
 ```
 
 ### Path configuration
-All scripts read and write under a hard-coded base directory (`BASE` / absolute paths beginning `F:\scs research\`). **Before running, edit the base path at the top of each script** to point at your local copy of this package.
+Scripts resolve their working root from the environment variable `SCS_ROOT`. If it is not set, the root defaults to the **parent directory of `scripts/`**, so **no path editing is required**:
+
+```bash
+export SCS_ROOT=/path/to/your/copy        # optional; overrides the default
+```
+
+Under that root the pipeline expects the layout below. The provided package already contains every intermediate table, so the layout can be staged in three commands:
+
+| Path under `$SCS_ROOT` | Contents | Where it comes from |
+|---|---|---|
+| `output/v11/` | Intermediate analysis tables | the shipped `results/*.csv` |
+| `outputs/novelty_v11/` | Criterion-sensitivity and cross-reference tables | the shipped `results/B_*.csv` and `results/C_*.csv` |
+| `Figures_v11/` | Rendered figures | the shipped `figures/` |
+| `output/GSE175760_expression_matrix.csv`, `output/GSE175760_metadata.csv` | Discovery-cohort expression matrix and sample sheet | **not redistributed** — obtain from GEO (section 1) |
+| Single-cell object for `v11_13_celltype_annotation.py` | GSE189070 annotated cell-by-gene matrix | **not redistributed** — obtain from GEO (section 1) |
+
+```bash
+mkdir -p output/v11 outputs/novelty_v11 Figures_v11
+cp results/*.csv                    output/v11/
+cp results/B_*.csv results/C_*.csv  outputs/novelty_v11/
+cp figures/*                        Figures_v11/
+```
+
+Because every intermediate table ships with the package, **each reported number can be verified without re-running the pipeline**; re-execution is only needed to regenerate a table from scratch. The mapping from each reported value to its source file is given in section 5, and a machine-readable version of the script-to-output mapping is in `MANIFEST.tsv`.
 
 ---
 

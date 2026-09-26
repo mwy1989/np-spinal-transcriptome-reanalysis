@@ -5,7 +5,10 @@
 # ============================================================
 suppressPackageStartupMessages(library(limma))
 
-BASE <- "F:/scs research"
+BASE <- Sys.getenv("SCS_ROOT", unset = {
+  .f <- sub("^--file=", "", grep("^--file=", commandArgs(FALSE), value = TRUE))
+  if (length(.f)) normalizePath(file.path(dirname(.f[1]), "..")) else normalizePath(".")
+})
 OUT  <- file.path(BASE, "output")
 V11  <- file.path(OUT, "v11")
 dir.create(V11, showWarnings = FALSE, recursive = TRUE)

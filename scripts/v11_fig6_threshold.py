@@ -25,10 +25,12 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from v11_figstyle import (apply_style, save, panel_tag, V11,
                           TEXT, GRID, SPINE, NEUTRAL, SOFT_RED, AMBER, seq_cmap)
 
+import os as _os
+BASE = _os.environ.get("SCS_ROOT") or _os.path.dirname(_os.path.dirname(_os.path.abspath(__file__)))
 apply_style()
 print("Fig 6 ...")
 
-OUT = r"F:\scs research\outputs\novelty_v11"
+OUT = os.path.join(BASE, "outputs", "novelty_v11")
 spec = pd.read_csv(os.path.join(OUT, "B_threshold_spectrum.csv"))
 jac = pd.read_csv(os.path.join(OUT, "B_jaccard_matrix.csv"), index_col=0)
 rob = pd.read_csv(os.path.join(OUT, "B_candidate_robustness.csv"))

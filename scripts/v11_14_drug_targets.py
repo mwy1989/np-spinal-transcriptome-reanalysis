@@ -10,7 +10,8 @@ v11 阶段 2 / 任务 37：候选基因与现有药物靶点的交叉比对（�
 import os
 import pandas as pd
 
-BASE = r"F:\scs research"
+import os as _os
+BASE = _os.environ.get("SCS_ROOT") or _os.path.dirname(_os.path.dirname(_os.path.abspath(__file__)))
 OUT = os.path.join(BASE, "output", "v11")
 
 cand = pd.read_csv(os.path.join(OUT, "candidates_primary.csv"))

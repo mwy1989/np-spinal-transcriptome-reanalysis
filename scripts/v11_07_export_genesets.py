@@ -5,7 +5,8 @@ v11 阶段 2：从 gsva_pilot_v2.py 提取 curated 通路基因集，导出为 G
 import ast
 import os
 
-BASE = r"F:\scs research"
+import os as _os
+BASE = _os.environ.get("SCS_ROOT") or _os.path.dirname(_os.path.dirname(_os.path.abspath(__file__)))
 SRC = os.path.join(BASE, "SCS-PCR", "scripts", "gsva_pilot_v2.py")
 OUT = os.path.join(BASE, "output", "v11")
 os.makedirs(OUT, exist_ok=True)

@@ -9,7 +9,8 @@ import pandas as pd
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from v11_figstyle import V11, FIGDIR
 
-BASE = r"F:\scs research"
+import os as _os
+BASE = _os.environ.get("SCS_ROOT") or _os.path.dirname(_os.path.dirname(_os.path.abspath(__file__)))
 print("Tables ...")
 
 # ============================================================

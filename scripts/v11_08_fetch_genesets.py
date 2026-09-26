@@ -7,7 +7,8 @@ import numpy as np
 import pandas as pd
 import gseapy as gp
 
-BASE = r"F:\scs research"
+import os as _os
+BASE = _os.environ.get("SCS_ROOT") or _os.path.dirname(_os.path.dirname(_os.path.abspath(__file__)))
 OUT = os.path.join(BASE, "output", "v11")
 os.makedirs(OUT, exist_ok=True)
 
