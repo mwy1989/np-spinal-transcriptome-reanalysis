@@ -1,0 +1,7 @@
+paper,label,n_mentioned,mentioned
+41008561,Li 2025 Biomolecules 15:1254（同刊同题，含qRT-PCR）,1,C1qa
+41184936,He 2025 J Transl Med 23:1209（GSE175760 原始数据作者）,4,Reg3b; C1qa; Cd68; C4a
+41733593,Cao 2026 Brain Behav（GSE175760 作验证集）,0,
+42039142,未标注 PMID 42039142,2,Cd68; C4a
+42606631,Metab Brain Dis 2026（概念撞车）,0,
+42706380,Sci Rep 2026 16:27944（小胶质表型时程）,1,C1qa

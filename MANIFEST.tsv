@@ -1,0 +1,32 @@
+﻿item	item_type	producing_script	primary_result_file(s)	notes
+Figure 1	figure	v11_fig1_design.py	DEG_summary_by_timepoint.csv	DEG_summary_by_timepoint.csv; panel A cohort roles; panel B PCA of 18 samples; panel C strict vs exploratory DEG counts
+Figure 2	figure	v11_fig2_temporal.py	cluster_k4_profiles.csv; wgcna_degs_module_trait.csv; gsva_hallmark_delta.csv	Panel A fuzzy c-means K=4; panel B module-cluster cross-tabulation; panel C GSVA Hallmark delta heat map
+Figure 3	figure	v11_fig3_candidates.py	candidates_primary.csv; gse5296_candidate_concordance.csv	Panel A candidate expression heat map; panels B-C GSE5296 concordance
+Figure 4	figure	v11_fig4_scs_trends.py	scs_candidate_expression.csv	Descriptive only; no P values anywhere in this figure
+Figure 5	figure	v11_fig5_celltype.py	candidate_dominant_celltype.csv; candidate_celltype_detection_rate.csv	Panel D is the explicit statement of the boundary of the evidence
+Table 1	table	v11_tables.py	(cohort metadata assembled in script)	Roles, group sizes, stimulation parameters and principal limitations of the four cohorts
+Table 2	table	v11_tables.py	candidates_primary.csv; candidate_dominant_celltype.csv	One row per candidate gene; includes BH-significant time-point count and cell-type columns
+386 strict-set DEGs	result	limma_standard_v11.R; v11_01_deg_finalize.R	DEG_strict_genes.csv	BH FDR < 0.05 with |log2FC| > 0.58
+1,940 exploratory-set DEGs	result	limma_standard_v11.R; v11_01_deg_finalize.R	DEG_exploratory_genes.csv	Nominal P < 0.05 with |log2FC| > 0.58
+Per-timepoint DEG counts (239/273/183)	result	v11_01_deg_finalize.R	DEG_summary_by_timepoint.csv	Zero at 0.5 d and 1 d under the strict threshold
+Temporal clusters 307/299/828/506	result	v11_05_temporal_clusters.R	cluster_k4_assignments.csv; cluster_k4_profiles.csv	Fuzzy c-means; K=4 retained over K=6
+WGCNA modules (turquoise 569, blue 238, brown 155, grey 354)	result	v11_02_wgcna.R; v11_02b_wgcna_degs.R	wgcna_degs_gene_modules.csv; wgcna_degs_module_trait.csv	power = 14 (R2 = 0.805); minModuleSize = 40; deepSplit = 2; mergeCutHeight = 0.25
+Module-cluster cross-tabulation (460/569, 235/238)	result	v11_02b_wgcna_degs.R; v11_05_temporal_clusters.R	cluster_k4_assignments.csv; wgcna_degs_gene_modules.csv	Reported as convergence of two frameworks, NOT as independent replication
+Machine-learning union (62) and candidate list (29)	result	v11_03_candidates.py	candidates_ml_union_all.csv; candidates_primary.csv	Requires >=1 ML selection AND BH FDR < 0.05 at >=1 time point
+GSVA Hallmark significant pathway counts (0/0/5/15/6)	result	v11_09_gsva.R; v11_11_pathway_consolidate.R	pathway_summary_hallmark.csv	GSVA 1.50.5 gsvaParam; limma with BH correction
+PROGENy JAK-STAT +6.746 at 7 d	result	v11_10_progeny.py	progeny_delta_limma.csv	decoupleR 2.2.0 dc.mt.mlm, tmin = 5
+Cross-method pathway agreement 9/12	result	v11_11_pathway_consolidate.R	pathway_cross_method_consistency.csv	GSVA-Hallmark vs curated collection vs PROGENy at 7 d
+Module enrichment (turquoise: Immune System 6.2e-35; complement 2.8e-11)	result	v11_12_enrichment.py	enrichment_module_turquoise.csv	Enrichr via gseapy; GO BP / Reactome / KEGG
+Candidate enrichment (Complement Cascade 3.4e-3)	result	v11_12_enrichment.py	enrichment_candidates.csv	Enrichr via gseapy
+GSE5296 concordance 20/23 at 7 d, rho = 0.649	result	v11_06_gse5296.R	gse5296_candidate_concordance.csv	Matrix log2-restored (median 6.08); model ~ strain + condition
+GSE5296 turquoise over-representation 9.86-fold	result	v11_06_gse5296.R	gse5296_module_overrepresentation.csv	Hypergeometric test; 7 d
+Stimulation trends 8/22 candidates	result	v11_04_scs_reversal.py	scs_candidate_expression.csv	DESCRIPTIVE ONLY; three samples per condition are three stimulation frequencies, not replicates
+Cell-type dominance 10/16 microglia	result	v11_13_celltype_annotation.py	candidate_dominant_celltype.csv	Assessability requires max detection rate > 10% and max mean expression > 0.1
+Drug target cross-reference	result	v11_14_drug_targets.py	drug_target_cross.csv	Supplementary only; no combination-therapy inference
+Figure 6	figure	v11_fig6_threshold.py	B_threshold_spectrum.csv; B_jaccard_matrix.csv; B_candidate_robustness.csv	Panel A union DEG yield per criterion; panel B head-to-head with the published criterion; panel C criterion x time point heat map; panel D pairwise Jaccard; panel E pass/fail grid of the 29 candidates; panel F effect size vs robustness
+Table 3	table	v11_table3.py	C_gene_crosswalk_matrix.csv; C_gene_crosswalk_summary.csv	Gene-level cross-reference of the 29 candidates against six competing studies; body text only, no supplementary tables searched
+Analysis-criterion spectrum (301-4,047 genes; 13.4-fold)	result	novelty_v11/_14_threshold_sensitivity.py	B_threshold_spectrum.csv	Ten criteria applied to the same limma-trend output; union across the five post-injury time points
+Criterion overlap (Jaccard 0.20 strict vs exploratory)	result	novelty_v11/_14_threshold_sensitivity.py	B_jaccard_matrix.csv	Turning multiple-testing correction on or off replaces about 80 % of the gene list
+Candidate robustness (20/29 across all ten criteria)	result	novelty_v11/_14_threshold_sensitivity.py	B_candidate_robustness.csv	Eight exceptions are lost only from criteria requiring |log2FC| >= 2; Chrna1 from the expression floor
+Published criterion applied to identical contrasts (861/708 vs 529/352)	result	novelty_v11/_14_threshold_sensitivity.py	B_threshold_spectrum.csv	Criterion reproduced verbatim from the data originators; residual 1.6-2.0-fold difference is implementation-dependent
+Gene-level cross-reference (25/29 not mentioned)	result	novelty_v11/_13_gene_crosswalk.py	C_gene_crosswalk_matrix.csv; C_gene_crosswalk_contexts.csv	Case-insensitive word-bounded symbol matching on retrieved full texts of six studies

@@ -1,0 +1,46 @@
+cff-version: 1.2.0
+message: "If you use this code or these derived results, please cite the associated manuscript."
+title: "Reproducibility package: Temporal spinal transcriptomic reprogramming and stimulation-associated candidate genes in neuropathic pain"
+abstract: >-
+  Analysis scripts and intermediate result tables for a criterion-explicit
+  cross-dataset re-analysis of four public spinal cord datasets
+  (GSE175760, GSE5296, GSE243038, GSE189070), covering time-course
+  differential expression with limma-trend, fuzzy c-means temporal clustering,
+  weighted gene co-expression network analysis, machine-learning candidate
+  prioritisation, GSVA/PROGENy pathway scoring, cross-platform concordance and
+  cell-type expression annotation.
+type: software
+authors:
+  - family-names: Mao
+    given-names: Wen-Yi
+    affiliation: "Department of Neurosurgery, Nantong Second People's Hospital, Nantong, Jiangsu 226002, China"
+    email: maowenyi89@hotmail.com
+    orcid: ""
+license: MIT
+version: 1.0.0
+date-released: "2026-09-26"
+keywords:
+  - neuropathic pain
+  - spinal cord
+  - transcriptomics
+  - time course
+  - WGCNA
+  - complement system
+  - microglia
+  - spinal cord stimulation
+  - reproducibility
+identifiers:
+  - type: doi
+    value: "10.5281/zenodo.XXXXXXX"
+    description: "Zenodo DOI (to be assigned on deposit)"
+references:
+  - title: >-
+      Temporal spinal transcriptomic reprogramming and stimulation-associated
+      candidate genes in neuropathic pain: a criterion-explicit re-analysis
+      framework across four public datasets
+    type: article
+    authors:
+      - family-names: Mao
+        given-names: Wen-Yi
+    year: 2026
+    notes: "Manuscript submitted for publication."

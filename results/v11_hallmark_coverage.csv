@@ -1,0 +1,51 @@
+geneset,n_genes,n_matched_rat,coverage
+Myc Targets V2,58,58,1.0
+Mitotic Spindle,199,194,0.975
+mTORC1 Signaling,200,193,0.965
+Myc Targets V1,200,193,0.965
+DNA Repair,150,144,0.96
+Protein Secretion,96,92,0.958
+E2F Targets,200,190,0.95
+Hedgehog Signaling,36,34,0.944
+TGF-beta Signaling,54,50,0.926
+Cholesterol Homeostasis,74,68,0.919
+Angiogenesis,36,33,0.917
+UV Response Dn,144,132,0.917
+Unfolded Protein Response,113,103,0.912
+Adipogenesis,200,182,0.91
+Apoptosis,161,146,0.907
+Notch Signaling,32,29,0.906
+G2-M Checkpoint,200,180,0.9
+Oxidative Phosphorylation,200,180,0.9
+PI3K/AKT/mTOR  Signaling,105,94,0.895
+Pperoxisome,104,93,0.894
+Interferon Alpha Response,97,86,0.887
+Androgen Response,100,88,0.88
+p53 Pathway,200,174,0.87
+UV Response Up,158,137,0.867
+Glycolysis,200,173,0.865
+Interferon Gamma Response,200,173,0.865
+Reactive Oxygen Species Pathway,49,42,0.857
+Fatty Acid Metabolism,158,135,0.854
+Hypoxia,200,170,0.85
+Apical Junction,200,168,0.84
+Epithelial Mesenchymal Transition,200,168,0.84
+TNF-alpha Signaling via NF-kB,200,167,0.835
+Wnt-beta Catenin Signaling,42,35,0.833
+heme Metabolism,200,166,0.83
+IL-2/STAT5 Signaling,199,165,0.829
+Estrogen Response Early,200,165,0.825
+Bile Acid Metabolism,112,90,0.804
+KRAS Signaling Up,200,160,0.8
+IL-6/JAK/STAT3 Signaling,87,69,0.793
+Estrogen Response Late,200,158,0.79
+Myogenesis,200,153,0.765
+Inflammatory Response,200,153,0.765
+Complement,200,152,0.76
+Xenobiotic Metabolism,200,152,0.76
+Apical Surface,44,32,0.727
+Allograft Rejection,200,141,0.705
+Coagulation,138,93,0.674
+Spermatogenesis,135,86,0.637
+Pancreas Beta Cells,40,23,0.575
+KRAS Signaling Dn,200,102,0.51

@@ -1,0 +1,22 @@
+# R package requirements — SCS v11 reproducibility package
+# R 4.3.3
+# Install base + Bioconductor packages with:
+#   install.packages(c("BiocManager","WGCNA","e1071"))
+#   BiocManager::install(c("limma","GSVA","GSEABase"))
+
+# --- Bioconductor ---
+limma            # 3.58.1  — limma-trend differential expression (eBayes(trend=TRUE))
+GSVA             # 1.50.5  — gene set variation analysis (gsvaParam, Gaussian kernel)
+GSEABase         #         — gene set containers for GSVA
+
+# --- CRAN ---
+WGCNA            # 1.74    — weighted gene co-expression network analysis
+e1071            #         — fuzzy c-means soft clustering (cmeans)
+matrixStats      #         — required by WGCNA
+dynamicTreeCut   #         — required by WGCNA
+fastcluster      #         — required by WGCNA
+Hmisc            #         — required by WGCNA
+impute           #         — required by WGCNA (BiocManager)
+
+# --- base R ---
+# stats, utils, graphics — no additional installation required

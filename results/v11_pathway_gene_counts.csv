@@ -1,0 +1,29 @@
+pathway,n_genes_defined
+JAK-STAT signaling,64
+NF-kB signaling,51
+TLR signaling,36
+NOD-like receptor,33
+Complement & coagulation,45
+Cytokine-receptor interaction,48
+Inflammatory response,57
+TNF-a via NF-kB,64
+Synaptic vesicle cycle,45
+Neuroactive ligand-receptor,81
+Axon guidance,71
+Long-term potentiation,36
+GABAergic synapse,42
+Glutamatergic synapse,55
+Dopaminergic synapse,43
+Circadian rhythm,29
+Endocannabinoid signaling,39
+Oxidative phosphorylation,66
+Glycolysis,25
+Lipid metabolism,39
+Purine metabolism,49
+Apoptosis,55
+Autophagy,46
+ER stress / UPR,40
+p53 pathway,43
+Hypoxia,74
+EZH2 / Polycomb targets,51
+Neurodegeneration,41

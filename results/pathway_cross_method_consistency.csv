@@ -1,0 +1,13 @@
+"hallmark","custom","progeny","d7_hallmark","d7_custom","d7_progeny","n_methods","sign_consistent_7d"
+"IL-6/JAK/STAT3 Signaling","JAK-STAT signaling","JAK-STAT",0.759,0.822,6.746,3,TRUE
+"TNF-alpha Signaling via NF-kB","TNF-a via NF-kB","TNFa",0.438,0.568,1.035,3,TRUE
+"Inflammatory Response","Inflammatory response",NA,0.628,0.908,NA,2,TRUE
+"Complement","Complement & coagulation",NA,0.509,0.879,NA,2,TRUE
+"Oxidative Phosphorylation","Oxidative phosphorylation",NA,-0.501,-0.609,NA,2,TRUE
+"Hypoxia","Hypoxia","Hypoxia",0.12,0.117,0.225,3,TRUE
+"Apoptosis","Apoptosis",NA,0.324,0.418,NA,2,TRUE
+"p53 Pathway","p53 pathway","p53",0.205,0.369,-1.424,3,FALSE
+"Unfolded Protein Response","ER stress / UPR",NA,0.19,0.301,NA,2,TRUE
+"Glycolysis","Glycolysis",NA,0.067,-0.088,NA,2,FALSE
+"TGF-beta Signaling",NA,"TGFb",0.366,NA,-0.897,2,FALSE
+"Wnt-beta Catenin Signaling",NA,"WNT",0.27,NA,1.053,2,TRUE

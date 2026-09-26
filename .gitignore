@@ -1,0 +1,34 @@
+# Raw public data are downloaded by the user and are NOT redistributed here.
+# See README section 1 for the download commands.
+data/
+*.h5ad
+*.rds.tmp
+GSE175760/
+GSE5296/
+GSE243038/
+GSE189070/
+
+# Python
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+.venv/
+venv/
+
+# R
+.Rhistory
+.RData
+.Rproj.user/
+*.Rout
+
+# Editors / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Local scratch
+*.tmp
+*.bak
+~$*

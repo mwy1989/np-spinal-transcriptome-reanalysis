@@ -1,0 +1,52 @@
+{
+  "title": "Reproducibility package: Temporal spinal transcriptomic reprogramming and stimulation-associated candidate genes in neuropathic pain",
+  "description": "<p>Analysis scripts and intermediate result tables supporting a criterion-explicit cross-dataset re-analysis of four public spinal cord datasets.</p><p><strong>Datasets.</strong> GSE175760 (rat chronic constriction injury, lumbar spinal cord, bulk RNA-seq, six groups &times; n = 3; discovery cohort), GSE5296 (mouse contusive spinal cord injury microarray, 96 samples; cross-platform direction concordance), GSE243038 (mouse spinal motoneurons, Smart-seq2; descriptive stimulation-associated trends), GSE189070 (mouse spinal cord single-cell RNA-seq; cell-type expression reference). All data were obtained from the NCBI Gene Expression Omnibus; no new data were generated.</p><p><strong>Contents.</strong> (i) R and Python scripts covering differential expression with limma-trend on the unified scale log2(FPKM + 0.1), fuzzy c-means temporal clustering, WGCNA, LASSO and SVM-RFE candidate prioritisation, GSVA with MSigDB Hallmark sets, PROGENy, functional enrichment, cross-platform concordance and cell-type annotation; (ii) the intermediate result tables from which every number in the manuscript is derived; (iii) the five main figures as 600 dpi PNG and vector PDF, and the two main tables.</p><p><strong>Methodological notes.</strong> Two differential-expression thresholds are reported in parallel (strict: Benjamini&ndash;Hochberg FDR &lt; 0.05 with |log2FC| &gt; 0.58; exploratory: nominal P &lt; 0.05 with |log2FC| &gt; 0.58). The GSE5296 matrix as distributed is a linearised back-transformation of RMA log2 values and was log2-transformed before computation, with strain fitted as a covariate. The GSE243038 dataset was analysed descriptively only, without inferential statistics, because its three samples per condition correspond to three stimulation frequencies rather than biological replicates.</p><p><strong>Scope.</strong> No wet-laboratory validation was performed. All statements in the associated manuscript are hypotheses or dataset descriptions.</p>",
+  "upload_type": "software",
+  "access_right": "open",
+  "license": "MIT",
+  "version": "1.0.0",
+  "language": "eng",
+  "creators": [
+    {
+      "name": "Mao, Wen-Yi",
+      "affiliation": "Department of Neurosurgery, Nantong Second People's Hospital, Nantong, Jiangsu 226002, China",
+      "orcid": ""
+    }
+  ],
+  "keywords": [
+    "neuropathic pain",
+    "spinal cord",
+    "transcriptomics",
+    "time-course analysis",
+    "WGCNA",
+    "co-expression network",
+    "complement system",
+    "microglia",
+    "spinal cord stimulation",
+    "cross-dataset analysis",
+    "reproducibility"
+  ],
+  "related_identifiers": [
+    {
+      "identifier": "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE175760",
+      "relation": "isDerivedFrom",
+      "scheme": "url"
+    },
+    {
+      "identifier": "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE5296",
+      "relation": "isDerivedFrom",
+      "scheme": "url"
+    },
+    {
+      "identifier": "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE243038",
+      "relation": "isDerivedFrom",
+      "scheme": "url"
+    },
+    {
+      "identifier": "https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE189070",
+      "relation": "isDerivedFrom",
+      "scheme": "url"
+    }
+  ],
+  "notes": "Corresponding author: Wen-Yi Mao (maowenyi89@hotmail.com). Companion manuscript submitted to Biomolecules."
+}
