@@ -150,6 +150,14 @@ These two scripts live in `novelty_v11/` rather than `scripts/` and produce the 
 
 **Not redistributed.** `_13_gene_crosswalk.py` reads plain-text caches of the six related papers, which are not included here for copyright reasons. The list of papers and the genes each mentions are in `results/C_gene_crosswalk_summary.csv`, so the derived table can be verified without the full texts.
 
+### Stage H — Pseudo-count and leave-one-animal-out sensitivity (Supplementary Table S1)
+
+| # | Script | Produces |
+|---|---|---|
+| H1 | `v11b_pcnt_loo_sensitivity.R` | `S1_pseudocount_sensitivity.csv`, `S1_pseudocount_gene_fc.csv`, `S1_loo_candidate_stability.csv`, `S1_loo_per_candidate.csv`, `S1_loo_per_resample.csv` — the inputs for Supplementary Table S1 |
+
+H1 varies the log pseudo-count over 0.01, 0.1 and 1.0 and repeats the whole pipeline 18 times leaving out one animal at a time, using only the deposited expression matrix and the 29 candidates defined earlier. It exists because a count-based re-analysis, the check one would normally run here, **cannot be performed on this dataset**: GEO distributes GSE175760 as FPKM values only (HISAT2 → StringTie → Ballgown; `Supplementary_files_format_and_content` states FPKM for each sample, and `GSE175760_RAW.tar` contains 18 per-sample files whose only value column is `1_FPKM`). A count-based analysis would require re-quantifying the original reads from SRA with a different annotation and genome build, which could not be compared back to the main chain.
+
 ---
 
 ## 4. Figure / table → script manifest
@@ -165,6 +173,7 @@ These two scripts live in `novelty_v11/` rather than `scripts/` and produce the 
 | Table 1 | `v11_tables.py` | (cohort metadata) |
 | Table 2 | `v11_tables.py` | `candidates_primary.csv`, `candidate_dominant_celltype.csv` |
 | Table 3 | `v11_table3.py` | `C_gene_crosswalk_matrix.csv`, `C_gene_crosswalk_summary.csv` |
+| Supplementary Table S1 | `v11b_pcnt_loo_sensitivity.R` | `S1_pseudocount_sensitivity.csv`, `S1_pseudocount_gene_fc.csv`, `S1_loo_candidate_stability.csv` |
 
 A machine-readable version of this mapping is in `MANIFEST.tsv`.
 
@@ -188,14 +197,18 @@ A machine-readable version of this mapping is in `MANIFEST.tsv`.
 | Published criterion applied to identical contrasts: 861 / 708 vs 529 / 352 reported | `B_threshold_spectrum.csv` |
 | Jaccard 0.20 between the strict and the exploratory set; the strict set is a subset, 386 of 1,940 genes (19.9 %) surviving correction | `B_jaccard_matrix.csv` |
 | 20 of 29 candidates pass all ten criteria; 29 of 29 pass the strict criterion | `B_candidate_robustness.csv` |
-| 25 of 29 candidates not mentioned in the body text of six competing studies | `C_gene_crosswalk_matrix.csv` |
+| 25 of 29 candidates not mentioned in the body text of six related studies | `C_gene_crosswalk_matrix.csv` |
+| Pseudo-count 0.01 / 0.10 / 1.00: strict set 357 / 386 / 352; all 29 candidates FDR-significant under each; Jaccard 0.84–0.91 | `S1_pseudocount_sensitivity.csv` |
+| Pseudo-count changes effect magnitude but not identity, direction or peak time point (Reg3b 6.05 → 3.85; C1qa 2.73 → 2.71) | `S1_pseudocount_gene_fc.csv` |
+| Leave-one-animal-out (18 replicates): 21 of 29 candidates significant in all 18, minimum 13 (72 %); peak time point changes in 13 of 29 and never falls at 0.5 or 1 d | `S1_loo_candidate_stability.csv`, `S1_loo_per_candidate.csv`, `S1_loo_per_resample.csv` |
 
 ---
 
 ## 6. Scope of inference (reproduced here for clarity)
 
 - The discovery cohort has **three animals per time point**; although limma's variance moderation improves power, no gene passes strict correction at 0.5 or 1 d.
-- **FPKM with a pseudo-count of 0.1** is a legitimate and internally consistent choice, but it is not a count-based model; a different pseudo-count would change fold-change magnitudes for lowly expressed genes.
+- **FPKM with a pseudo-count of 0.1** is a legitimate and internally consistent choice, but it is not a count-based model, and a count-based re-analysis is not possible on these data because the reads were deposited as FPKM only. The pseudo-count sensitivity analysis (Stage H, Supplementary Table S1) shows the scope of the limitation: over pseudo-counts 0.01 to 1.0 the strict set moved only between 352 and 386 genes and the identity, direction and peak time point of all 29 candidates were unchanged, while effect magnitudes moved substantially. The limitation therefore bears on cross-study effect-size comparison, not on the candidate set.
+- **The 29-candidate list is not uniformly stable to dropping one animal.** Under 18 leave-one-animal-out replicates, 21 of 29 retained adjusted significance in every replicate and the least stable three in 13 (72 %); the internal time assignment changed in 13 of 29, always between two of 3, 7 and 14 d, and no candidate ever peaked at 0.5 or 1 d. The stable object is the 3–14 d window, not the individual programme membership.
 - The stimulation dataset (**GSE243038**) contains motoneurons only. Its four stimulated conditions each contain three samples labelled as replicates that nevertheless carry different frequencies (10/15/20 Hz for MS, SCS and DES_eff; 1/30/40 Hz for DES_ineff), so frequency and sample identity are confounded, while the two non-stimulated conditions carry three replicates and no frequency label. The dataset supports **no inferential claim** of any kind.
 - The single-cell reference (**GSE189070**) contains **no neuronal cluster** and is not spatial. Neuronal expression could not be assessed for any gene, and no spatial inference is made.
 - **No wet-laboratory validation** was performed. Every statement in the manuscript is a hypothesis or a dataset description, not a demonstration of mechanism.

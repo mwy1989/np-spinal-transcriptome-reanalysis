@@ -1,0 +1,4 @@
+"pseudocount","strict_n","exploratory_n","candidates_FDR_significant_of_29","strict_Jaccard_vs_0.1","peak_timepoint_identical_to_0.1","direction_identical_to_0.1"
+0.01,357,1977,29,0.905,NA,NA
+0.1,386,1940,29,1,TRUE,TRUE
+1,352,1355,29,0.84,TRUE,TRUE
