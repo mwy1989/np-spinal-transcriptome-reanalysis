@@ -5,7 +5,7 @@ B) Head-to-head with the published criterion of the data originators (He 2025)
 C) DEG counts per criterion x time point (criteria grouped by multiple-testing strategy)
 D) Pairwise Jaccard overlap between criteria
 E) Pass/fail grid of the 29 candidates across the ten criteria
-F) Why the nine non-robust candidates drop out (effect size vs robustness)
+F) Which criteria exclude the nine exceptions (effect size vs criteria passed)
 
 Input : outputs/novelty_v11/B_threshold_spectrum.csv
         outputs/novelty_v11/B_jaccard_matrix.csv
@@ -43,14 +43,14 @@ TPD = ["0.5 d", "1 d", "3 d", "7 d", "14 d"]
 DEFS = {
     "C1":  ("BH FDR < 0.05 & |log2FC| > 0.58",                          "fdr"),
     "C3":  ("BH FDR < 0.05, no effect-size filter",                     "fdr"),
-    "C7":  ("BH FDR < 0.05 & |FC| >= 2 (two-fold)",                     "fdr"),
+    "C7":  ("BH FDR < 0.05 & |log2FC| >= 1 (two-fold)",                 "fdr"),
     "C10": ("BH FDR < 0.05 & |log2FC| > 0.58 & FPKM >= 0.5",            "fdr"),
     "C6":  ("P <= 0.05 & FC >= 1.5 & FPKM >= 0.5 (published, He 2025)", "pub"),
     "C2":  ("nominal P < 0.05 & |log2FC| > 0.58",                       "nom"),
     "C4":  ("nominal P < 0.05, no effect-size filter",                  "nom"),
     "C5":  ("nominal P < 0.01 & |log2FC| > 0.58",                       "nom"),
-    "C8":  ("nominal P < 0.05 & |FC| >= 2 (two-fold)",                  "nom"),
-    "C9":  ("nominal P < 0.01 & |FC| >= 2 (two-fold)",                  "nom"),
+    "C8":  ("nominal P < 0.05 & |log2FC| >= 1 (two-fold)",              "nom"),
+    "C9":  ("nominal P < 0.01 & |log2FC| >= 1 (two-fold)",              "nom"),
 }
 # spec.csv 行序：1,2,3,4,5,6,7,8,9,10 -> 映射到 C 编号
 rowmap = {"C1": 0, "C2": 1, "C3": 2, "C4": 3, "C5": 4,
@@ -232,8 +232,8 @@ for s in ("top", "right"):
 axF.grid(True, axis="y", lw=0.5, alpha=0.4)
 axF.set_axisbelow(True)
 axF.tick_params(length=2.2)
-axF.set_title("Why nine candidates are not robust", loc="left", pad=16)
-axF.annotate("8 genes below the two-fold\nthreshold lose only the\ncriteria that require |FC| >= 2",
+axF.set_title("Effect size accounts for the nine exceptions", loc="left", pad=16)
+axF.annotate("8 genes below the two-fold\nthreshold lose only the\ncriteria that require |log2FC| >= 1",
              xy=(1.30, 7.05), xytext=(3.05, 9.35), fontsize=5.4, color="#8F3F3C",
              ha="left", va="center", linespacing=1.5,
              arrowprops=dict(arrowstyle="-", lw=0.7, color="#8F3F3C",

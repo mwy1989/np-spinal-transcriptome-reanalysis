@@ -30,7 +30,7 @@ meta = pd.read_csv(os.path.join(BASE, "output", "GSE175760_metadata.csv"))
 deg = pd.read_csv(os.path.join(V11, "DEG_summary_by_timepoint.csv"))
 
 fig = plt.figure(figsize=(7.2, 6.6))
-gs = GridSpec(2, 2, figure=fig, height_ratios=[1.06, 0.94],
+gs = GridSpec(2, 2, figure=fig, height_ratios=[1.22, 0.90],
               hspace=0.42, wspace=0.30)
 
 # ================= A. Cohort design =================
@@ -40,14 +40,14 @@ axA.set_xlim(0, 11.2)
 axA.set_ylim(0, 5.0)
 
 def box(x, y, w, h, title, lines, fc="#FFFFFF", ec=SPINE, lw=0.9, tcolor=TEXT,
-        fs_t=7.8, fs_b=6.6):
+        fs_t=7.8, fs_b=6.6, ls=1.5, body_dy=0.60):
     axA.add_patch(FancyBboxPatch((x, y), w, h,
                                  boxstyle="round,pad=0.06,rounding_size=0.12",
                                  fc=fc, ec=ec, lw=lw))
     axA.text(x + w / 2, y + h - 0.28, title, ha="center", va="top",
              fontsize=fs_t, fontweight="bold", color=tcolor)
-    axA.text(x + w / 2, y + h - 0.60, "\n".join(lines), ha="center", va="top",
-             fontsize=fs_b, color=TEXT, linespacing=1.5)
+    axA.text(x + w / 2, y + h - body_dy, "\n".join(lines), ha="center", va="top",
+             fontsize=fs_b, color=TEXT, linespacing=ls)
 
 def arrow(p1, p2, color=SPINE):
     axA.add_patch(FancyArrowPatch(p1, p2, arrowstyle="-|>", mutation_scale=8,
@@ -67,34 +67,35 @@ box(0.10, 1.55, 3.30, 3.05,
     fc="#FDF4F3", ec=SOFT_RED, lw=1.1)
 
 # 三个外部数据集（同列纵向排列，箭头不交叉）
-box(4.30, 3.50, 3.20, 1.30,
+box(4.30, 3.52, 3.60, 1.30,
     "Cross-platform  |  GSE5296",
     ["Mouse, spinal cord injury, microarray",
      "96 samples; impact region",
      "\u2192 direction concordance of candidates"],
-    fc="#FFFFFF", ec=SPINE, fs_b=6.4)
+    fc="#FFFFFF", ec=SPINE, fs_b=6.0)
 
-box(4.30, 2.05, 3.20, 1.30,
+box(4.30, 1.70, 3.60, 1.72,
     "Stimulation  |  GSE243038",
     ["Mouse, spinal cord motoneurons, Smart-seq2",
-     "6 groups \u00d7 3 stimulation frequencies",
+     "6 groups \u00d7 3 samples; frequencies differ",
+     "within each stimulated group",
      "\u2192 stimulation-associated trends"],
-    fc="#FFFFFF", ec=SPINE, fs_b=6.4)
+    fc="#FFFFFF", ec=SPINE, fs_b=6.0)
 
-box(4.30, 0.60, 3.20, 1.30,
+box(4.30, 0.30, 3.60, 1.30,
     "Cell-type reference  |  GSE189070",
     ["Mouse, spinal cord scRNA-seq",
      "10 annotated cell types; no neuronal cluster",
      "\u2192 descriptive expression background"],
-    fc="#FFFFFF", ec=SPINE, fs_b=6.4)
+    fc="#FFFFFF", ec=SPINE, fs_b=6.0, ls=1.35, body_dy=0.54)
 
 arrow((3.42, 4.05), (4.27, 4.15), color=SOFT_RED)
-arrow((3.42, 3.05), (4.27, 2.70), color=SOFT_RED)
-arrow((3.42, 2.05), (4.27, 1.25), color=SOFT_RED)
+arrow((3.42, 3.05), (4.27, 2.56), color=SOFT_RED)
+arrow((3.42, 2.05), (4.27, 0.95), color=SOFT_RED)
 
 axA.text(0.10, 0.18,
-         "All analyses re-run on a single unified expression scale  [ log$_2$(FPKM + 0.1) ]  with limma-trend;  "
-         "GSE5296 re-run after restoring the log$_2$ scale of the RMA matrix.",
+         "Discovery and stimulation cohorts analysed on one unified scale  [ log$_2$(FPKM + 0.1) ]  with limma-trend;  "
+         "GSE5296 (microarray) and the single-cell reference were analysed by their own methods.",
          fontsize=6.4, color=NEUTRAL, ha="left", va="center")
 panel_tag(axA, "A", dx=-0.015, dy=1.0)
 

@@ -49,7 +49,7 @@ BiocManager::install(c("limma", "GSVA", "GSEABase"))
 - scikit-learn, pandas, numpy, matplotlib, gseapy, anndata, decoupler 2.2.0
 - `requirements_python.txt`
 
-Figures 1–5 in this package were rendered with matplotlib 3.10.9 and Figure 6 with 3.11.0. Because figure geometry is computed from a tight bounding box, another matplotlib version may shift the canvas by a pixel or two; no plotted value, colour or label is affected. Pin `matplotlib==3.10.9` if byte-identical output is required.
+Figures 2 and 3 in this package were rendered with matplotlib 3.10.9, and Figures 1, 4, 5 and 6 with 3.11.0 (same Python 3.11 base). Because figure geometry is computed from a tight bounding box, another matplotlib version may shift the canvas by a pixel or two; no plotted value, colour or label is affected. Pin `matplotlib==3.11.0` for Figures 1, 4, 5 and 6 or `matplotlib==3.10.9` for Figures 2 and 3 if byte-identical output is required.
 
 ```bash
 pip install -r requirements_python.txt
@@ -126,6 +126,7 @@ Primary list = selected by ≥1 machine-learning method **and** passing BH FDR <
 | E2 | `v11_04_scs_reversal.py` | `scs_candidate_expression.csv`. **No P value, confidence interval or restoration percentage is computed.** Each of the four stimulated conditions contains three samples that the source metadata labels as replicates but which carry 10/15/20 Hz (MS, SCS, DES_eff) or 1/30/40 Hz (DES_ineff), so frequency and sample identity cannot be separated; the two non-stimulated conditions (sham, untrained) carry three replicates and no frequency label |
 | E3 | `v11_13_celltype_annotation.py` | `candidate_dominant_celltype.csv`, `candidate_celltype_detection_rate.csv`, `fig5_celltype_heatmap_matrix.csv` |
 | E4 | `v11_14_drug_targets.py` | `drug_target_cross.csv` (supplementary only) |
+| E5 | `v11_14_myeloid_merge.py` | `myeloid_merge_dominant_celltype.csv`, `myeloid_merge_summary.csv` — recomputes the dominant cell type of every candidate after pooling microglia, macrophages and neutrophils into one myeloid category, under two weightings (mean over the pooled cells; mean of the three subtype means with equal weight). Reads the single-cell object with `h5py` directly because the file was written by a newer `anndata` and cannot be opened by `anndata` 0.10.8. The inputs for Supplementary Table S1d |
 
 ### Stage F — Figures and tables
 | # | Script | Produces |
@@ -156,7 +157,7 @@ These two scripts live in `novelty_v11/` rather than `scripts/` and produce the 
 |---|---|---|
 | H1 | `v11b_pcnt_loo_sensitivity.R` | `S1_pseudocount_sensitivity.csv`, `S1_pseudocount_gene_fc.csv`, `S1_loo_candidate_stability.csv`, `S1_loo_per_candidate.csv`, `S1_loo_per_resample.csv` — the inputs for Supplementary Table S1 |
 
-H1 varies the log pseudo-count over 0.01, 0.1 and 1.0 and repeats the whole pipeline 18 times leaving out one animal at a time, using only the deposited expression matrix and the 29 candidates defined earlier. It exists because a count-based re-analysis, the check one would normally run here, **cannot be performed on this dataset**: GEO distributes GSE175760 as FPKM values only (HISAT2 → StringTie → Ballgown; `Supplementary_files_format_and_content` states FPKM for each sample, and `GSE175760_RAW.tar` contains 18 per-sample files whose only value column is `1_FPKM`). A count-based analysis would require re-quantifying the original reads from SRA with a different annotation and genome build, which could not be compared back to the main chain.
+H1 varies the log pseudo-count over 0.01, 0.1 and 1.0, and separately refits the differential-expression model 18 times leaving out one animal at a time and evaluating the 29 candidates defined earlier in every replicate. The leave-one-animal part **does not re-run clustering, network construction or feature selection**, so it describes the stability of the differential-expression step for a fixed candidate list, not the stability of the selection procedure. The whole block exists because a count-based re-analysis, the check one would normally run here, **cannot be performed on this dataset**: the processed data distributed for GSE175760 contain only FPKM values, not counts (HISAT2 → StringTie → Ballgown; `Supplementary_files_format_and_content` states FPKM for each sample, and `GSE175760_RAW.tar` contains 18 per-sample files whose only value column is `1_FPKM`). A count-based analysis would require re-quantifying the deposited reads from SRA with a different annotation and genome build, which could not be compared back to the main chain.
 
 ---
 
@@ -168,12 +169,15 @@ H1 varies the log pseudo-count over 0.01, 0.1 and 1.0 and repeats the whole pipe
 | Figure 2 | `v11_fig2_temporal.py` | `cluster_k4_profiles.csv`, `wgcna_degs_module_trait.csv`, `gsva_hallmark_delta.csv` |
 | Figure 3 | `v11_fig3_candidates.py` | `candidates_primary.csv`, `gse5296_candidate_concordance.csv` |
 | Figure 4 | `v11_fig4_scs_trends.py` | `scs_candidate_expression.csv` |
-| Figure 5 | `v11_fig5_celltype.py` | `candidate_dominant_celltype.csv` |
+| Figure 5 | `v11_fig5_celltype.py`, `v11_14_myeloid_merge.py` | `candidate_dominant_celltype.csv`, `myeloid_merge_dominant_celltype.csv` |
 | Figure 6 | `v11_fig6_threshold.py` | `B_threshold_spectrum.csv`, `B_jaccard_matrix.csv`, `B_candidate_robustness.csv` |
 | Table 1 | `v11_tables.py` | (cohort metadata) |
 | Table 2 | `v11_tables.py` | `candidates_primary.csv`, `candidate_dominant_celltype.csv` |
 | Table 3 | `v11_table3.py` | `C_gene_crosswalk_matrix.csv`, `C_gene_crosswalk_summary.csv` |
-| Supplementary Table S1 | `v11b_pcnt_loo_sensitivity.R` | `S1_pseudocount_sensitivity.csv`, `S1_pseudocount_gene_fc.csv`, `S1_loo_candidate_stability.csv` |
+| Supplementary Table S1 (a–c) | `v11b_pcnt_loo_sensitivity.R` | `S1_pseudocount_sensitivity.csv`, `S1_pseudocount_gene_fc.csv`, `S1_loo_candidate_stability.csv` |
+| Supplementary Table S1 (d) | `v11_14_myeloid_merge.py` | `myeloid_merge_dominant_celltype.csv`, `myeloid_merge_summary.csv` |
+
+In Figure 5, panel A separates the 16 assessable candidates from the eight that fail the assessability criterion, and panel C draws the 10 % detection threshold as a dashed line and flags **Gapt in amber**: it reaches 11.0 % detection but its maximum mean expression (0.09) stays below the 0.1 that the criterion also requires. Panel B gives the dominant cell type **after pooling the three myeloid subtypes and recomputing the mean over the pooled cells** (9 of 16 myeloid-dominant); an asterisk marks the four genes (Cfh, Nrp1, Lmo2, Arhgap25) that lose myeloid dominance under this recomputation, and the original-label attribution is carried in Table 2 and in Supplementary Table S1d. The eight genes in the lower block of panel A are not assigned to any cell type.
 
 A machine-readable version of this mapping is in `MANIFEST.tsv`.
 
@@ -192,7 +196,8 @@ A machine-readable version of this mapping is in `MANIFEST.tsv`.
 | PROGENy JAK-STAT +6.746 at 7 d | `progeny_delta_limma.csv` |
 | GSE5296 concordance 20/23 at 7 d, ρ = 0.649 | `gse5296_candidate_concordance.csv` |
 | 8 of 22 candidates with stimulation-associated trends | `scs_candidate_expression.csv` |
-| 10 of 16 assessable candidates microglia-dominant; 13 of 16 myeloid-dominant once microglia, macrophages and neutrophils are merged | `candidate_dominant_celltype.csv` |
+| 10 of 16 assessable candidates microglia-dominant under the original labels | `candidate_dominant_celltype.csv` |
+| 9 of 16 assessable candidates myeloid-dominant after pooling the three myeloid subtypes and recomputing the mean (both weightings agree); 13 of 16 by relabelling the original assignments without recomputing, which is not used | `myeloid_merge_dominant_celltype.csv`, `myeloid_merge_summary.csv` |
 | DEG yield spans 301–4,047 genes (13.4-fold) across ten analysis criteria | `B_threshold_spectrum.csv` |
 | Published criterion applied to identical contrasts: 861 / 708 vs 529 / 352 reported | `B_threshold_spectrum.csv` |
 | Jaccard 0.20 between the strict and the exploratory set; the strict set is a subset, 386 of 1,940 genes (19.9 %) surviving correction | `B_jaccard_matrix.csv` |
@@ -207,7 +212,7 @@ A machine-readable version of this mapping is in `MANIFEST.tsv`.
 ## 6. Scope of inference (reproduced here for clarity)
 
 - The discovery cohort has **three animals per time point**; although limma's variance moderation improves power, no gene passes strict correction at 0.5 or 1 d.
-- **FPKM with a pseudo-count of 0.1** is a legitimate and internally consistent choice, but it is not a count-based model, and a count-based re-analysis is not possible on these data because the reads were deposited as FPKM only. The pseudo-count sensitivity analysis (Stage H, Supplementary Table S1) shows the scope of the limitation: over pseudo-counts 0.01 to 1.0 the strict set moved only between 352 and 386 genes and the identity, direction and peak time point of all 29 candidates were unchanged, while effect magnitudes moved substantially. The limitation therefore bears on cross-study effect-size comparison, not on the candidate set.
+- **FPKM with a pseudo-count of 0.1** is a legitimate and internally consistent choice, but it is not a count-based model, and a count-based re-analysis is not possible on these data because the processed data distributed for this study contain only FPKM values, not counts. The pseudo-count sensitivity analysis (Stage H, Supplementary Table S1) shows the scope of the limitation: over pseudo-counts 0.01 to 1.0 the strict set moved only between 352 and 386 genes and the identity, direction and peak time point of all 29 candidates were unchanged, while effect magnitudes moved substantially. The limitation therefore bears on cross-study effect-size comparison, not on the candidate set.
 - **The 29-candidate list is not uniformly stable to dropping one animal.** Under 18 leave-one-animal-out replicates, 21 of 29 retained adjusted significance in every replicate and the least stable three in 13 (72 %); the internal time assignment changed in 13 of 29, always between two of 3, 7 and 14 d, and no candidate ever peaked at 0.5 or 1 d. The stable object is the 3–14 d window, not the individual programme membership.
 - The stimulation dataset (**GSE243038**) contains motoneurons only. Its four stimulated conditions each contain three samples labelled as replicates that nevertheless carry different frequencies (10/15/20 Hz for MS, SCS and DES_eff; 1/30/40 Hz for DES_ineff), so frequency and sample identity are confounded, while the two non-stimulated conditions carry three replicates and no frequency label. The dataset supports **no inferential claim** of any kind.
 - The single-cell reference (**GSE189070**) contains **no neuronal cluster** and is not spatial. Neuronal expression could not be assessed for any gene, and no spatial inference is made.

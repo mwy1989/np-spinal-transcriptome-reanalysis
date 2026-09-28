@@ -1,7 +1,7 @@
 """
 Fig 4 — Stimulation-associated expression trends (GSE243038)
 A) Slope plot (broken y-axis): Sham -> SCI -> SCS group means, all evaluable candidates
-B) Per-animal expression for candidates trending back toward Sham
+B) Per-sample expression for candidates trending back toward Sham
    (purely descriptive; no P values are reported)
 """
 import os, sys
@@ -92,7 +92,7 @@ for key, ax, gap in [("top", axAT, 0.55), ("bot", axAB, 0.62)]:
                     if abs(v - yl) > 0.14 else None)
 
 axAB.axhline(FLOOR, color=SPINE, lw=0.6, ls=(0, (3, 3)))
-axAB.text(0.10, FLOOR - 0.42, "detection floor", fontsize=5.3, color=NEUTRAL)
+axAB.text(0.10, FLOOR - 0.42, "zero expression  [ log$_2$(0 + 0.1) ]", fontsize=5.3, color=NEUTRAL)
 h = [plt.Line2D([], [], color=SOFT_GREEN, marker="o", ms=2.6, lw=1.1, mec="white"),
      plt.Line2D([], [], color="#D5CFC8", marker="o", ms=2.6, lw=1.1, mec="white")]
 axAB.legend(h, ["trend toward Sham", "no trend"], loc="upper left", fontsize=5.8,
@@ -126,10 +126,10 @@ for k, g in enumerate(tr):
     else:
         ax.set_yticklabels([])
 
-fig.text(0.455, 0.935, "Per-animal expression, candidates trending back toward Sham",
+fig.text(0.455, 0.935, "Per-sample expression, candidates trending back toward Sham",
          fontsize=8.4, fontweight="bold", color=TEXT)
 fig.text(0.985, 0.028,
-         "SCS animals (left to right) received 10, 15 and 20 Hz; horizontal bars denote group means. "
+         "SCS samples (left to right) received 10, 15 and 20 Hz; horizontal bars denote group means. "
          "Descriptive only \u2014 no P values are reported.",
          fontsize=5.6, color=NEUTRAL, ha="right")
 fig.text(0.415, 0.935, "B", fontsize=10, fontweight="bold", color=TEXT)
