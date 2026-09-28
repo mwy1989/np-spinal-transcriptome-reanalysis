@@ -22,8 +22,9 @@ authors:
     email: zcj358@sina.com
     orcid: "https://orcid.org/0009-0006-0585-0161"
 license: MIT
+repository-code: "https://github.com/mwy1989/np-spinal-transcriptome-reanalysis"
 version: 1.0.0
-date-released: "2026-09-26"
+date-released: "2026-09-29"
 keywords:
   - neuropathic pain
   - spinal cord
