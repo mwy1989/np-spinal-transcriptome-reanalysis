@@ -10,7 +10,12 @@
     {
       "name": "Mao, Wen-Yi",
       "affiliation": "Department of Neurosurgery, Nantong Second People's Hospital, Nantong, Jiangsu 226002, China",
-      "orcid": ""
+      "orcid": "0009-0004-2729-7921"
+    },
+    {
+      "name": "Zhao, Cheng-Jin",
+      "affiliation": "Department of Neurosurgery, Nantong Second People's Hospital, Nantong, Jiangsu 226002, China",
+      "orcid": "0009-0006-0585-0161"
     }
   ],
   "keywords": [
@@ -48,5 +53,5 @@
       "scheme": "url"
     }
   ],
-  "notes": "Corresponding author: Wen-Yi Mao (maowenyi89@hotmail.com). Companion manuscript submitted to Biomolecules."
+  "notes": "First author: Wen-Yi Mao (maowenyi89@hotmail.com). Corresponding author: Cheng-Jin Zhao (zcj358@sina.com). Companion manuscript submitted to Biomolecules."
 }

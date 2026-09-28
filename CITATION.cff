@@ -15,7 +15,12 @@ authors:
     given-names: Wen-Yi
     affiliation: "Department of Neurosurgery, Nantong Second People's Hospital, Nantong, Jiangsu 226002, China"
     email: maowenyi89@hotmail.com
-    orcid: ""
+    orcid: "https://orcid.org/0009-0004-2729-7921"
+  - family-names: Zhao
+    given-names: Cheng-Jin
+    affiliation: "Department of Neurosurgery, Nantong Second People's Hospital, Nantong, Jiangsu 226002, China"
+    email: zcj358@sina.com
+    orcid: "https://orcid.org/0009-0006-0585-0161"
 license: MIT
 version: 1.0.0
 date-released: "2026-09-26"
@@ -38,5 +43,7 @@ references:
     authors:
       - family-names: Mao
         given-names: Wen-Yi
+      - family-names: Zhao
+        given-names: Cheng-Jin
     year: 2026
     notes: "Manuscript submitted for publication."

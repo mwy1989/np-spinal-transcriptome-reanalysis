@@ -3,7 +3,7 @@
 This package accompanies the manuscript:
 
 > **Temporal spinal transcriptomic reprogramming and stimulation-associated candidate genes in neuropathic pain: a criterion-explicit re-analysis framework across four public datasets**
-> Wen-Yi Mao, MD. Department of Neurosurgery, Nantong Second People's Hospital, Nantong, Jiangsu, China.
+> Wen-Yi Mao, MD, and Cheng-Jin Zhao, MD. Department of Neurosurgery, Nantong Second People's Hospital, Nantong, Jiangsu 226002, China.
 
 It contains every analysis script and every intermediate result table from which each number, figure and table in the manuscript is derived. All analyses use **only public data**; no new data were generated and no ethics approval was required.
 
@@ -232,5 +232,6 @@ Citation metadata is provided in `CITATION.cff`; Zenodo deposit metadata is in `
 
 ## 8. Contact
 
-Wen-Yi Mao, MD — maowenyi89@hotmail.com
+Wen-Yi Mao, MD (first author) — maowenyi89@hotmail.com
+Cheng-Jin Zhao, MD (corresponding author) — zcj358@sina.com
 Department of Neurosurgery, Nantong Second People's Hospital, Nantong, Jiangsu 226002, China
