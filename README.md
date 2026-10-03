@@ -1,5 +1,9 @@
 # Reproducibility package — Temporal spinal transcriptomic reprogramming and stimulation-associated candidate genes in neuropathic pain
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23022098.svg)](https://doi.org/10.5281/zenodo.23022098)
+
+**Archived version:** v1.0.0 — [10.5281/zenodo.23022858](https://doi.org/10.5281/zenodo.23022858) (concept DOI above always resolves to the latest version)
+
 This package accompanies the manuscript:
 
 > **Temporal spinal transcriptomic reprogramming and stimulation-associated candidate genes in neuropathic pain: a criterion-explicit re-analysis framework across four public datasets**
